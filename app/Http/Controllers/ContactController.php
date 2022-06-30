@@ -10,4 +10,10 @@ class ContactController extends Controller
         $result = ContactTableModel::all();
         return $result;
     }
+
+    function ContactDelete(Request $request){
+        $id = $request->input('id');
+        $result= ContactTableModel::where('id','=',$id)->delete();
+        return $result;
+    }
 }

@@ -15,6 +15,7 @@ use App\Http\Controllers\ContactController;
 
 //Contact Page Routes
 Route::get('/ContactList',[ContactController::class,'ContactList']);
+Route::post('/ContactDelete',[ContactController::class,'ContactDelete']);
 
 
 
