@@ -19942,7 +19942,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _components_Menu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Menu */ "./resources/js/components/Menu.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
+/* harmony import */ var react_bootstrap_table_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap-table-next */ "./node_modules/react-bootstrap-table-next/lib/index.js");
+/* harmony import */ var react_bootstrap_table2_paginator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap-table2-paginator */ "./node_modules/react-bootstrap-table2-paginator/lib/index.js");
+/* harmony import */ var _components_loadingDiv__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/loadingDiv */ "./resources/js/components/loadingDiv.js");
+/* harmony import */ var _components_wentWrong__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/wentWrong */ "./resources/js/components/wentWrong.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19969,6 +19978,13 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+
+
+
+
+
+
 var Course = /*#__PURE__*/function (_Component) {
   _inherits(Course, _Component);
 
@@ -19987,20 +20003,159 @@ var Course = /*#__PURE__*/function (_Component) {
       rowDataId: "",
       deleteBtnText: "Delete"
     };
-    _this.DataDelete = _this.DataDelete;
+    _this.DataDelete = _this.DataDelete.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Course, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get('/CourseList').then(function (response) {
+        if (response.status == 200) {
+          _this2.setState({
+            dataList: response.data,
+            isLoading: false,
+            isError: false
+          });
+        } else {
+          _this2.setState({
+            isLoading: false,
+            isError: true
+          });
+        }
+      })["catch"](function (error) {
+        _this2.setState({
+          isLoading: false,
+          isError: true
+        });
+      });
+    }
+  }, {
+    key: "DataDelete",
+    value: function DataDelete() {
+      var _this3 = this;
+
+      var confirmMessage = confirm("Do You Want to Delete?");
+
+      if (confirmMessage === true) {
+        this.setState({
+          deleteBtnText: "Deleting..."
+        });
+        axios__WEBPACK_IMPORTED_MODULE_2___default().post('/CourseDelete', {
+          id: this.state.rowDataId
+        }).then(function (response) {
+          if (response.status == 200 && response.data == 1) {
+            _this3.setState({
+              deleteBtnText: "Data Deleted Successfully!"
+            });
+
+            _this3.componentDidMount();
+
+            setTimeout(function () {
+              this.setState({
+                deleteBtnText: "Delete"
+              });
+            }.bind(_this3), 2000);
+          } else {
+            _this3.setState({
+              deleteBtnText: "Data Not Deleted"
+            });
+
+            setTimeout(function () {
+              this.setState({
+                deleteBtnText: "Delete"
+              });
+            }.bind(_this3), 2000);
+          }
+        })["catch"](function (error) {
+          _this3.setState({
+            deleteBtnText: "Data Not Deleted"
+          });
+
+          setTimeout(function () {
+            this.setState({
+              deleteBtnText: "Delete"
+            });
+          }.bind(_this3), 2000);
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_Menu__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
-            children: "Course Page"
+      var _this4 = this;
+
+      if (this.state.isLoading == true) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Menu__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_loadingDiv__WEBPACK_IMPORTED_MODULE_5__["default"], {})
           })
-        })
-      });
+        });
+      } else if (this.state.isError == true) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Menu__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_wentWrong__WEBPACK_IMPORTED_MODULE_6__["default"], {})
+          })
+        });
+      } else {
+        var data = this.state.dataList;
+        var columns = [{
+          dataField: 'id',
+          text: 'ID'
+        }, {
+          dataField: 'short_title',
+          text: 'Courses'
+        }, {
+          dataField: 'short_des',
+          text: 'Short Description'
+        }, {
+          dataField: 'long_title',
+          text: 'Long Title'
+        }, {
+          dataField: 'long_des',
+          text: 'Long Description'
+        }, {
+          dataField: 'total_lecture',
+          text: 'Total Lecture'
+        }, {
+          dataField: 'total_student',
+          text: 'Total Student'
+        }];
+        var selectRow = {
+          mode: 'radio',
+          onSelect: function onSelect(row, isSelect, rowIndex) {
+            _this4.setState({
+              rowDataId: row['id']
+            });
+          }
+        };
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Menu__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                  sm: 12,
+                  md: 12,
+                  lg: 12,
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+                    onClick: this.DataDelete,
+                    className: "normal-btn btn my-2",
+                    children: this.state.deleteBtnText
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_bootstrap_table_next__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                    keyField: "id",
+                    data: data,
+                    columns: columns,
+                    pagination: (0,react_bootstrap_table2_paginator__WEBPACK_IMPORTED_MODULE_4__["default"])(),
+                    selectRow: selectRow
+                  })]
+                })
+              })
+            })
+          })
+        });
+      }
     }
   }]);
 
