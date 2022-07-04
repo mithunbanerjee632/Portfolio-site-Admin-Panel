@@ -7,6 +7,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminLoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +43,8 @@ Route::post('/ClientReviewDelete',[ReviewController::class,'ClientReviewDelete']
 Route::get('/ServiceList',[ServiceController::class,'ServiceList']);
 Route::post('/ServiceDelete',[ServiceController::class,'ServiceDelete']);
 
+//Admin Login Page Routes
+Route::get('/Login',[AdminLoginController::class,'LoginPage']);
 
 
 
