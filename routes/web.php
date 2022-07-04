@@ -6,6 +6,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +17,10 @@ use App\Http\Controllers\ServiceController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+//Contact Page Routes
+Route::get('/CountSummary',[HomeController::class,'CountSummary']);
+
 
 //Contact Page Routes
 Route::get('/ContactList',[ContactController::class,'ContactList']);

@@ -18,6 +18,7 @@ class Projects extends Component {
             deleteBtnText:"Delete"
         }
         this.DataDelete=this.DataDelete.bind(this);
+        this.ImgCellFormatter=this.ImgCellFormatter.bind(this);
     }
 
     componentDidMount() {
@@ -62,11 +63,19 @@ class Projects extends Component {
        }
     }
 
+    //Image Cell Formatter Method
+
+    ImgCellFormatter(cell,row){
+        return(
+            <img className="table-cell-img" src={cell} />
+        )
+    }
+
 
     render() {
         if(this.state.isLoading==true){
             return(
-                <Menu>
+                <Menu title="Projects">
                     <Container>
                         <LoadingDiv/>
                     </Container>
@@ -74,7 +83,7 @@ class Projects extends Component {
             )
         }else if(this.state.isError==true){
             return(
-                <Menu>
+                <Menu title="Projects">
                     <Container>
                         <WentWrong/>
                     </Container>
@@ -85,7 +94,8 @@ class Projects extends Component {
 
             const columns=[
                 {dataField:'id',text:'ID'},
-                {dataField:'project_name',text:'Project'},
+                {dataField:'img_one',text:'Image',formatter:this.ImgCellFormatter},
+                {dataField:'project_name',text:'Project Name'},
                 {dataField:'short_description',text:'Description'},
             ]
 
@@ -100,7 +110,7 @@ class Projects extends Component {
 
             return (
                 <Fragment>
-                    <Menu>
+                    <Menu title="Projects">
                         <Container>
                             <Row>
                                 <Col sm={12} md={12} lg={12}>

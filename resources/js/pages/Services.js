@@ -67,7 +67,7 @@ class Services extends Component {
 
             if(this.state.isLoading==true){
                return(
-                   <Menu>
+                   <Menu title="Services">
                        <Container>
                            <LoadingDiv/>
                        </Container>
@@ -75,7 +75,7 @@ class Services extends Component {
                )
             }else if(this.state.isError==true){
               return(
-                  <Menu>
+                  <Menu title="Services">
                       <Container>
                           <WentWrong/>
                       </Container>
@@ -99,7 +99,7 @@ class Services extends Component {
                 return (
 
                     <Fragment>
-                        <Menu>
+                        <Menu title="Services">
                             <Container>
                                 <Row>
                                     <Col sm={12} md={12} lg={12}>

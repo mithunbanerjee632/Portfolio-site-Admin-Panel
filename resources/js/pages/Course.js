@@ -18,6 +18,7 @@ class Course extends Component {
             deleteBtnText:"Delete"
         }
         this.DataDelete=this.DataDelete.bind(this);
+        this.ImgCellFormatter=this.ImgCellFormatter.bind(this);
     }
 
     componentDidMount() {
@@ -58,10 +59,18 @@ class Course extends Component {
         }
     }
 
+    //Image Cell Formatter Method
+
+    ImgCellFormatter(cell,row){
+        return(
+            <img className="table-cell-img" src={cell} />
+        )
+    }
+
     render() {
         if(this.state.isLoading==true){
             return(
-                <Menu>
+                <Menu title="Courses">
                     <Container>
                         <LoadingDiv/>
                     </Container>
@@ -69,7 +78,7 @@ class Course extends Component {
             )
         }else if(this.state.isError==true){
             return(
-                <Menu>
+                <Menu title="Courses">
                     <Container>
                         <WentWrong/>
                     </Container>
@@ -79,10 +88,11 @@ class Course extends Component {
             const data=this.state.dataList;
             const columns=[
                 {dataField:'id',text:'ID'},
-                {dataField:'short_title',text:'Courses'},
-                {dataField:'short_des',text:'Short Description'},
-                {dataField:'long_title',text:'Long Title'},
-                {dataField:'long_des',text:'Long Description'},
+                {dataField:'small_img',text:'Image',formatter:this.ImgCellFormatter},
+                {dataField:'short_title',text:'Title'},
+                {dataField:'short_des',text:'Description'},
+                // {dataField:'long_title',text:'Long Title'},
+                // {dataField:'long_des',text:'Long Description'},
                 {dataField:'total_lecture',text:'Total Lecture'},
                 {dataField:'total_student',text:'Total Student'},
             ]
@@ -96,7 +106,7 @@ class Course extends Component {
 
             return (
                 <Fragment>
-                    <Menu>
+                    <Menu title="Courses">
                         <Container>
                             <Row>
                                 <Col sm={12} md={12} lg={12}>

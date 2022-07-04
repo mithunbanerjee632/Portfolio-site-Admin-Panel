@@ -63,7 +63,7 @@ DataDelete(){
     render() {
         if(this.state.isLoading==true){
             return(
-                <Menu>
+                <Menu title="Client Review">
                     <Container>
                         <LoadingDiv/>
                     </Container>
@@ -71,7 +71,7 @@ DataDelete(){
             )
         }else if(this.state.isError==true){
           return(
-              <Menu>
+              <Menu title="Client Review">
                   <Container>
                       <WentWrong/>
                   </Container>
@@ -82,9 +82,9 @@ DataDelete(){
 
             const columns=[
                 {dataField: 'id', text: 'ID'},
-                {dataField: 'client_title', text: 'Client Title'},
-                {dataField: 'client_description', text: 'Client Description'},
-                {dataField: 'client_img', text: 'Client Image'},
+                {dataField: 'client_title', text: 'Client Name'},
+                {dataField: 'client_description', text: 'Description'},
+
             ]
 
             const selectRow={
@@ -96,7 +96,7 @@ DataDelete(){
             return (
                 <Fragment>
 
-                    <Menu>
+                    <Menu title="Client Review">
                       <Container>
                           <Row>
                               <Col sm={12} md={12} lg={12}>

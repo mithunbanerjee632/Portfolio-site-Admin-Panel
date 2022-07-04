@@ -104,7 +104,7 @@ class ContactPage extends Component {
 
             return (
                 <Fragment>
-                    <Menu>
+                    <Menu title="Contact">
                         <Container>
                             <Row>
                                 <Col sm={12} md={12} lg={12}>
