@@ -45,7 +45,8 @@ Route::post('/ServiceDelete',[ServiceController::class,'ServiceDelete']);
 
 //Admin Login Page Routes
 Route::get('/Login',[AdminLoginController::class,'LoginPage']);
-
+//Route::get('/onLogin/{UserName}/{Password}',[AdminLoginController::class,'onLogin']);
+Route::post('/onLogin',[AdminLoginController::class,'onLogin']);
 
 
 
