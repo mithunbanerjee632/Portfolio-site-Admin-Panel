@@ -20,34 +20,34 @@ use App\Http\Controllers\AdminLoginController;
 */
 
 //Contact Page Routes
-Route::get('/CountSummary',[HomeController::class,'CountSummary']);
+Route::get('/CountSummary',[HomeController::class,'CountSummary'])->middleware('loginCheck');
 
 
 //Contact Page Routes
-Route::get('/ContactList',[ContactController::class,'ContactList']);
-Route::post('/ContactDelete',[ContactController::class,'ContactDelete']);
+Route::get('/ContactList',[ContactController::class,'ContactList'])->middleware('loginCheck');;
+Route::post('/ContactDelete',[ContactController::class,'ContactDelete'])->middleware('loginCheck');;
 
 //Course Page Routes
-Route::get('/CourseList',[CourseController::class,'CourseList']);
-Route::post('/CourseDelete',[CourseController::class,'CourseDelete']);
+Route::get('/CourseList',[CourseController::class,'CourseList'])->middleware('loginCheck');;
+Route::post('/CourseDelete',[CourseController::class,'CourseDelete'])->middleware('loginCheck');;
 
 //Project Page Routes
-Route::get('/ProjectList',[ProjectController::class,'ProjectList']);
-Route::post('/ProjectDelete',[ProjectController::class,'ProjectDelete']);
+Route::get('/ProjectList',[ProjectController::class,'ProjectList'])->middleware('loginCheck');
+Route::post('/ProjectDelete',[ProjectController::class,'ProjectDelete'])->middleware('loginCheck');
 
 //Client Review Page Routes
-Route::get('/ClientReviewList',[ReviewController::class,'ClientReviewList']);
-Route::post('/ClientReviewDelete',[ReviewController::class,'ClientReviewDelete']);
+Route::get('/ClientReviewList',[ReviewController::class,'ClientReviewList'])->middleware('loginCheck');
+Route::post('/ClientReviewDelete',[ReviewController::class,'ClientReviewDelete'])->middleware('loginCheck');
 
 //Service Page Routes
-Route::get('/ServiceList',[ServiceController::class,'ServiceList']);
-Route::post('/ServiceDelete',[ServiceController::class,'ServiceDelete']);
+Route::get('/ServiceList',[ServiceController::class,'ServiceList'])->middleware('loginCheck');
+Route::post('/ServiceDelete',[ServiceController::class,'ServiceDelete'])->middleware('loginCheck');
 
 //Admin Login Page Routes
-Route::get('/Login',[AdminLoginController::class,'LoginPage']);
+Route::get('/login',[AdminLoginController::class,'LoginPage']);
 //Route::get('/onLogin/{UserName}/{Password}',[AdminLoginController::class,'onLogin']);
 Route::post('/onLogin',[AdminLoginController::class,'onLogin']);
-
+Route::get('/Logout',[AdminLoginController::class,'onLogout']);
 
 
 
@@ -69,8 +69,8 @@ Route::post('/onLogin',[AdminLoginController::class,'onLogin']);
 
 Route::get('/', function () {
     return view('index');
-});
+})->middleware('loginCheck');
 
 Route::get('{AnyRoute}', function () {
     return view('index');
-})->where('AnyRoute','.*');
+})->where('AnyRoute','.*')->middleware('loginCheck');

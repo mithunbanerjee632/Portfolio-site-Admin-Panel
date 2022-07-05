@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AdminLoginModel;
 use Illuminate\Http\Request;
+use App\Models\AdminLoginModel;
 
 class AdminLoginController extends Controller
 {
-   function LoginPage(){
-       return view('Login');
-   }
+    function LoginPage(){
+        return view('Login');
+    }
 
 //   function onLogin(Request $request){
 //        $UserName = $request->UserName;
@@ -36,5 +36,10 @@ class AdminLoginController extends Controller
         }else{
             return 0;
         }
+    }
+
+    function onLogout(Request $request){
+        $request->session()->flush('userNameKey');
+        return redirect('/login');
     }
 }
