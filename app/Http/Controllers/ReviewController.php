@@ -17,4 +17,16 @@ class ReviewController extends Controller
         $result= ClientReviewModel::where('id','=',$id)->delete();
         return $result;
     }
+
+    function AddReview(Request $request){
+        $title = $request->input('title');
+        $des = $request->input('des');
+        $photoPath = $request->file('photo')->store('public');
+        $photoName = explode('/',$photoPath)[1];
+        $photoUrl = $_SERVER['HTTP_HOST']."/storage/".$photoName;
+
+        $result = ClientReviewModel::insert(['client_img'=>$photoUrl,'client_title'=>$title,'client_description'=>$des]);
+        return $result;
+
+    }
 }

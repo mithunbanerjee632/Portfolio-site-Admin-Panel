@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import Menu from "../components/Menu";
 import Axios from "axios";
-import {Col, Row,Container} from "react-bootstrap";
+import {Col, Row, Container, Modal, Button} from "react-bootstrap";
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from "react-bootstrap-table2-paginator";
 import LoadingDiv from "../components/loadingDiv";
@@ -15,10 +15,22 @@ class Course extends Component {
             isLoading:true,
             isError:false,
             rowDataId:"",
-            deleteBtnText:"Delete"
+            deleteBtnText:"Delete",
+            AddNewModalOpen:false,
         }
         this.DataDelete=this.DataDelete.bind(this);
         this.ImgCellFormatter=this.ImgCellFormatter.bind(this);
+
+        this.AddNewModalOpen=this.AddNewModalOpen.bind(this)
+        this.AddNewModalClose=this.AddNewModalClose.bind(this)
+    }
+
+    AddNewModalOpen(){
+        this.setState({AddNewModalOpen:true})
+    }
+
+    AddNewModalClose(){
+        this.setState({AddNewModalOpen:false})
     }
 
     componentDidMount() {
@@ -111,11 +123,30 @@ class Course extends Component {
                             <Row>
                                 <Col sm={12} md={12} lg={12}>
                                     <button onClick={this.DataDelete} className="normal-btn btn my-2">{this.state.deleteBtnText}</button>
+                                    <button onClick={this.AddNewModalOpen} className="normal-btn ml-2 my-2  btn">Add New</button>
                                     <BootstrapTable keyField='id' data={ data } columns={ columns } pagination={ paginationFactory() } selectRow={selectRow}/>
                                 </Col>
                             </Row>
                         </Container>
                     </Menu>
+
+                    {/*Add New Modal*/}
+
+                    <Modal show={this.state.AddNewModalOpen} onHide={this.AddNewModalClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Modal heading</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={this.AddNewModalClose}>
+                                Close
+                            </Button>
+                            <Button variant="primary">
+                                Save Changes
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+
 
                 </Fragment>
             );

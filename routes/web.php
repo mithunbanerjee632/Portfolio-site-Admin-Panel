@@ -38,6 +38,7 @@ Route::post('/ProjectDelete',[ProjectController::class,'ProjectDelete'])->middle
 //Client Review Page Routes
 Route::get('/ClientReviewList',[ReviewController::class,'ClientReviewList'])->middleware('loginCheck');
 Route::post('/ClientReviewDelete',[ReviewController::class,'ClientReviewDelete'])->middleware('loginCheck');
+Route::post('/AddReview',[ReviewController::class,'AddReview'])->middleware('loginCheck');
 
 //Service Page Routes
 Route::get('/ServiceList',[ServiceController::class,'ServiceList'])->middleware('loginCheck');
