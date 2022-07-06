@@ -44,6 +44,7 @@ Route::post('/AddReview',[ReviewController::class,'AddReview'])->middleware('log
 //Service Page Routes
 Route::get('/ServiceList',[ServiceController::class,'ServiceList'])->middleware('loginCheck');
 Route::post('/ServiceDelete',[ServiceController::class,'ServiceDelete'])->middleware('loginCheck');
+Route::post('/AddService',[ServiceController::class,'AddService'])->middleware('loginCheck');
 
 //Admin Login Page Routes
 Route::get('/login',[AdminLoginController::class,'LoginPage']);

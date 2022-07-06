@@ -17,4 +17,15 @@ class ServiceController extends Controller
         $result= ServiceModel::where('id','=',$id)->delete();
         return $result;
     }
+
+    function AddService(Request $request){
+        $name = $request->input('name');
+        $des = $request->input('des');
+        $logoPath = $request->file('logo')->store('public');
+        $logoName = explode('/',$logoPath)[1];
+        $logoUrl = "/storage/".$logoName;
+
+        $result = ServiceModel::insert(['service_name'=>$name,'service_description'=>$des,'service_logo'=>$logoUrl]);
+        return $result;
+    }
 }
