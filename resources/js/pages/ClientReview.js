@@ -19,7 +19,8 @@ class ClientReview extends Component {
             AddNewModalOpen:false,
             addTitle:"",
             addDes:"",
-            addPhoto:""
+            addPhoto:"",
+            addBtnText:"Submit"
         }
         this.DataDelete=this.DataDelete.bind(this)
 
@@ -62,8 +63,8 @@ class ClientReview extends Component {
         let title = this.state.addTitle;
         let des   = this.state.addDes;
         let photo = this.state.addPhoto;
-        let photoSize = photo.size;
-        let photoName = photo.name;
+        // let photoSize = photo.size;
+        // let photoName = photo.name;
 
         let url = "/AddReview";
 
@@ -76,13 +77,22 @@ class ClientReview extends Component {
             headers:{'content-type':'multipart/form-data'}
         }
 
+
+       this.setState({addBtnText:"Submitting..."})
         Axios.post(url,MyFormData,config).then((response)=>{
              if(response.data==1){
-                 this.AddNewModalClose();
+
                  this.componentDidMount();
+
+                 setTimeout(function(){
+                     this.setState({addBtnText:"Submit"})
+                 }.bind(this),2000);
              }
         }).catch((error)=>{
             alert(error);
+            setTimeout(function(){
+                this.setState({addBtnText:"Submit"})
+            }.bind(this),2000);
         });
     }
 

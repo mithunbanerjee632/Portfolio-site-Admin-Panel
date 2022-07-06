@@ -23,7 +23,7 @@ class ReviewController extends Controller
         $des = $request->input('des');
         $photoPath = $request->file('photo')->store('public');
         $photoName = explode('/',$photoPath)[1];
-        $photoUrl = $_SERVER['HTTP_HOST']."/storage/".$photoName;
+        $photoUrl = "/storage/".$photoName;
 
         $result = ClientReviewModel::insert(['client_img'=>$photoUrl,'client_title'=>$title,'client_description'=>$des]);
         return $result;

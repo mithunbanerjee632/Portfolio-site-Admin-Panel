@@ -34,6 +34,7 @@ Route::post('/CourseDelete',[CourseController::class,'CourseDelete'])->middlewar
 //Project Page Routes
 Route::get('/ProjectList',[ProjectController::class,'ProjectList'])->middleware('loginCheck');
 Route::post('/ProjectDelete',[ProjectController::class,'ProjectDelete'])->middleware('loginCheck');
+Route::post('/AddProject',[ProjectController::class,'AddProject'])->middleware('loginCheck');
 
 //Client Review Page Routes
 Route::get('/ClientReviewList',[ReviewController::class,'ClientReviewList'])->middleware('loginCheck');

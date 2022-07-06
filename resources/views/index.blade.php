@@ -9,6 +9,7 @@
     <link href="{{asset('css/responsive.css')}}" rel="stylesheet" >
     <link href="{{asset('css/sideNav.css')}}" rel="stylesheet" >
     <link href="{{asset('css/style.css')}}" rel="stylesheet" >
+    <link rel="stylesheet" href="https://unpkg.com/react-quill@1.3.3/dist/quill.snow.css">
 </head>
 <body>
 
