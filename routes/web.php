@@ -30,6 +30,7 @@ Route::post('/ContactDelete',[ContactController::class,'ContactDelete'])->middle
 //Course Page Routes
 Route::get('/CourseList',[CourseController::class,'CourseList'])->middleware('loginCheck');;
 Route::post('/CourseDelete',[CourseController::class,'CourseDelete'])->middleware('loginCheck');;
+Route::post('/AddCourse',[CourseController::class,'CourseAdd'])->middleware('loginCheck');;
 
 //Project Page Routes
 Route::get('/ProjectList',[ProjectController::class,'ProjectList'])->middleware('loginCheck');
