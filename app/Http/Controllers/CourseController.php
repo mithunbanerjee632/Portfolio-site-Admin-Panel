@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CourseTableModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
@@ -14,6 +15,15 @@ class CourseController extends Controller
 
     function  CourseDelete(Request $request){
         $id = $request->input('id');
+
+        $img = CourseTableModel::where('id','=',$id)->get('small_img');
+        $imgName = explode('/',$img[0]['small_img'])[4];
+        Storage::delete('public/'.$imgName);
+
+        $video = CourseTableModel::where('id','=',$id)->get('video_url');
+        $videoName = explode('/',$video[0]['video_url'])[4];
+        Storage::delete('public/'.$videoName);
+
         $result= CourseTableModel::where('id','=',$id)->delete();
         return $result;
     }
@@ -30,7 +40,7 @@ class CourseController extends Controller
 
         $imagePath = $request->file('image')->store('public');
         $imageName = explode('/',$imagePath)[1];
-        $imageUrl = "/storage/".$imageName;
+        $imageUrl ="http://".$_SERVER['HTTP_HOST']."/storage/".$imageName;
 
         $videoPath = $request->file('video')->store('public');
         $videoName = explode('/',$videoPath)[1];

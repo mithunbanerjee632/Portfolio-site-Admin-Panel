@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ServiceModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
@@ -14,6 +15,10 @@ class ServiceController extends Controller
 
     function  ServiceDelete(Request $request){
         $id = $request->input('id');
+        $logo = ServiceModel::where('id','=',$id)->get('service_logo');
+        $logoName = explode('/',$logo[0]['service_logo'])[4];
+        Storage::delete('public/'.$logoName);
+
         $result= ServiceModel::where('id','=',$id)->delete();
         return $result;
     }
