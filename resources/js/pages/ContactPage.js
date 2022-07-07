@@ -6,6 +6,8 @@ import LoadingDiv from "../components/loadingDiv";
 import WentWrong from "../components/wentWrong";
 import Axios from "axios";
 import {Col, Container, Row} from "react-bootstrap";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 class ContactPage extends Component {
@@ -41,23 +43,45 @@ class ContactPage extends Component {
             this.setState({deleteBtnText:"Deleting..."});
             Axios.post('/ContactDelete',{id:this.state.rowDataId}).then((response)=>{
                 if(response.data==1 && response.status==200){
-                    this.setState({deleteBtnText:"Deleted Successfully !"});
+                    toast.success('Data Deleted Successfully', {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: 0,
+                    });
+
+                    this.setState({deleteBtnText:"Delete"});
                     this.componentDidMount();
-                    setTimeout(function (){
-                        this.setState({deleteBtnText:"Delete"});
-                    }.bind(this),2000);
+
                 }else{
-                    this.setState({deleteBtnText:"Data Not Deleted !"});
-                    setTimeout(function (){
-                        this.setState({deleteBtnText:"Delete"});
-                    }.bind(this),2000);
+                    toast.error('Data Not Deleted!', {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: 0,
+                    });
+                    this.setState({deleteBtnText:"Delete"});
+
                 }
 
             }).catch((error)=>{
-                this.setState({deleteBtnText:"Data Not Deleted !"});
-                setTimeout(function (){
-                    this.setState({deleteBtnText:"Delete"});
-                }.bind(this),2000);
+                toast.error('Data Not Deleted!', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: 0,
+                });
+                this.setState({deleteBtnText:"Delete"});
+
             })
         }
 
@@ -112,6 +136,18 @@ class ContactPage extends Component {
                                     <BootstrapTable keyField='id' data={ data } columns={ columns } pagination={ paginationFactory() } selectRow={selectRow}/>
                                 </Col>
                             </Row>
+
+                            <ToastContainer
+                                position="top-right"
+                                autoClose={3000}
+                                hideProgressBar={false}
+                                newestOnTop={false}
+                                closeOnClick
+                                rtl={false}
+                                pauseOnFocusLoss={false}
+                                draggable
+                                pauseOnHover={false}
+                            />
                         </Container>
                     </Menu>
 

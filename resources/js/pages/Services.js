@@ -6,6 +6,8 @@ import Axios from "axios";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import LoadingDiv from "../components/loadingDiv";
 import WentWrong from "../components/wentWrong";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class Services extends Component {
     constructor() {
@@ -81,11 +83,39 @@ class Services extends Component {
 
         Axios.post(url,MyFormData,config).then((response)=>{
             if(response.data==1){
+                toast.success('Data Inserted Successfully', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: 0,
+                });
                 this.AddNewModalClose();
                 this.componentDidMount();
+
+            }else{
+                toast.error('Data Not Inserted!', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: 0,
+                });
             }
         }).catch((error)=>{
-            alert(error);
+            toast.error('Data Not Inserted!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: 0,
+            });
         });
 
     }
@@ -112,22 +142,42 @@ class Services extends Component {
 
              Axios.post('/ServiceDelete',{id:this.state.rowDataId}).then((response)=>{
                  if(response.status==200 && response.data==1){
-                     this.setState({deleteBtnText:"Data Deleted Successfully!"})
-                     this.componentDidMount()
-                     setTimeout(function(){
-                         this.setState({deleteBtnText:"Delete"})
-                     }.bind(this),2000);
+                     toast.success('Data Deleted Successfully', {
+                         position: "top-right",
+                         autoClose: 3000,
+                         hideProgressBar: false,
+                         closeOnClick: true,
+                         pauseOnHover: false,
+                         draggable: true,
+                         progress: 0,
+                     });
+
+                     this.setState({deleteBtnText:"Delete"});
+                     this.componentDidMount();
+
                  }else{
-                     this.setState({deleteBtnText:"Data is Not Deleted !"})
-                     setTimeout(function(){
-                         this.setState({deleteBtnText:"Delete"})
-                     }.bind(this),2000);
+                     toast.error('Data Not Deleted!', {
+                         position: "top-right",
+                         autoClose: 3000,
+                         hideProgressBar: false,
+                         closeOnClick: true,
+                         pauseOnHover: false,
+                         draggable: true,
+                         progress: 0,
+                     });
+                     this.setState({deleteBtnText:"Delete"});
                  }
              }).catch((error)=>{
-                 this.setState({deleteBtnText:"Data is Not Deleted !"})
-                 setTimeout(function(){
-                     this.setState({deleteBtnText:"Delete"})
-                 }.bind(this),2000);
+                 toast.error('Data Not Deleted!', {
+                     position: "top-right",
+                     autoClose: 3000,
+                     hideProgressBar: false,
+                     closeOnClick: true,
+                     pauseOnHover: false,
+                     draggable: true,
+                     progress: 0,
+                 });
+                 this.setState({deleteBtnText:"Delete"});
              })
          }
 
@@ -180,6 +230,18 @@ class Services extends Component {
                                         <BootstrapTable keyField='id' data={ data } columns={ columns } pagination={ paginationFactory() } selectRow={selectRow}/>
                                     </Col>
                                 </Row>
+
+                                <ToastContainer
+                                    position="top-right"
+                                    autoClose={3000}
+                                    hideProgressBar={false}
+                                    newestOnTop={false}
+                                    closeOnClick
+                                    rtl={false}
+                                    pauseOnFocusLoss={false}
+                                    draggable
+                                    pauseOnHover={false}
+                                />
                             </Container>
                         </Menu>
 

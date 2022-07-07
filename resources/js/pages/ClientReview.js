@@ -6,6 +6,8 @@ import LoadingDiv from "../components/loadingDiv";
 import WentWrong from "../components/wentWrong";
 import Axios from "axios";
 import {Button, Col, Container, Form, Modal, Row} from "react-bootstrap";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class ClientReview extends Component {
     constructor() {
@@ -81,18 +83,39 @@ class ClientReview extends Component {
        this.setState({addBtnText:"Submitting..."})
         Axios.post(url,MyFormData,config).then((response)=>{
              if(response.data==1){
-
+                 toast.success('Data Inserted Successfully', {
+                     position: "top-right",
+                     autoClose: 3000,
+                     hideProgressBar: false,
+                     closeOnClick: true,
+                     pauseOnHover: false,
+                     draggable: true,
+                     progress: 0,
+                 });
+                 this.AddNewModalClose();
                  this.componentDidMount();
 
-                 setTimeout(function(){
-                     this.setState({addBtnText:"Submit"})
-                 }.bind(this),2000);
+             }else{
+                 toast.error('Data Not Inserted!', {
+                     position: "top-right",
+                     autoClose: 3000,
+                     hideProgressBar: false,
+                     closeOnClick: true,
+                     pauseOnHover: false,
+                     draggable: true,
+                     progress: 0,
+                 });
              }
         }).catch((error)=>{
-            alert(error);
-            setTimeout(function(){
-                this.setState({addBtnText:"Submit"})
-            }.bind(this),2000);
+            toast.error('Data Not Inserted!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: 0,
+            });
         });
     }
 
@@ -116,22 +139,42 @@ DataDelete(){
 
         Axios.post('/ClientReviewDelete',{id:this.state.rowDataId}).then((response)=>{
             if(response.status==200 && response.data==1){
-                this.setState({deleteBtnText:"Data Deleted Successfully!"})
+                toast.success('Data Deleted Successfully', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: 0,
+                });
+
+                this.setState({deleteBtnText:"Delete"});
                 this.componentDidMount();
-                setTimeout(function(){
-                    this.setState({deleteBtnText:"Delete"})
-                }.bind(this),2000);
+
             }else{
-                this.setState({deleteBtnText:"Data Not Deleted !"})
-                setTimeout(function(){
-                    this.setState({deleteBtnText:"Delete"})
-                }.bind(this),2000);
+                toast.error('Data Not Deleted!', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: 0,
+                });
+                this.setState({deleteBtnText:"Delete"});
             }
         }).catch((error)=>{
-            this.setState({deleteBtnText:"Data Not Deleted !"})
-            setTimeout(function(){
-                this.setState({deleteBtnText:"Delete"})
-            }.bind(this),2000);
+            toast.error('Data Not Deleted!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: 0,
+            });
+            this.setState({deleteBtnText:"Delete"});
         })
     }
 }
@@ -183,6 +226,18 @@ DataDelete(){
                                   <BootstrapTable keyField='id' data={ data } columns={ columns } pagination={ paginationFactory() } selectRow={selectRow}/>
                               </Col>
                           </Row>
+
+                          <ToastContainer
+                              position="top-right"
+                              autoClose={3000}
+                              hideProgressBar={false}
+                              newestOnTop={false}
+                              closeOnClick
+                              rtl={false}
+                              pauseOnFocusLoss={false}
+                              draggable
+                              pauseOnHover={false}
+                          />
                       </Container>
                     </Menu>
 
