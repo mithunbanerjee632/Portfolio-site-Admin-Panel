@@ -23,7 +23,7 @@ class ServiceController extends Controller
         $des = $request->input('des');
         $logoPath = $request->file('logo')->store('public');
         $logoName = explode('/',$logoPath)[1];
-        $logoUrl = "/storage/".$logoName;
+        $logoUrl = "http://".$_SERVER['HTTP_HOST']."/storage/".$logoName;
 
         $result = ServiceModel::insert(['service_name'=>$name,'service_description'=>$des,'service_logo'=>$logoUrl]);
         return $result;

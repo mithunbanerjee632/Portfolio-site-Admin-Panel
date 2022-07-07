@@ -34,7 +34,7 @@ class CourseController extends Controller
 
         $videoPath = $request->file('video')->store('public');
         $videoName = explode('/',$videoPath)[1];
-        $videoUrl = "/storage/".$videoName;
+        $videoUrl ="http://".$_SERVER['HTTP_HOST']."/storage/".$videoName;
 
         $result = CourseTableModel::insert([
             'short_title'=>$title,

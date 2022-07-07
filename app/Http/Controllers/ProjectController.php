@@ -26,11 +26,11 @@ class ProjectController extends Controller
 
         $imgOnePath   = $request->file('imgOne')->store('public');
         $imgOneName = explode("/",$imgOnePath)[1];
-        $imgOneUrl = "/storage/".$imgOneName;
+        $imgOneUrl = "http://".$_SERVER['HTTP_HOST']."/storage/".$imgOneName;
 
         $imgTwoPath   = $request->file('imgTwo')->store('public');
         $imgTwoName = explode("/",$imgTwoPath)[1];
-        $imgTwoUrl = "/storage/".$imgTwoName;
+        $imgTwoUrl = "http://".$_SERVER['HTTP_HOST']."/storage/".$imgTwoName;
 
         $result = ProjectModel::insert([
             'img_one'=>$imgOneUrl,
